@@ -1,12 +1,13 @@
 import React from "react";
-import Business from './Business.js';
+import styles from './BusinessList.module.css'
+import Business from '../Business/Business';
 
 
 function BusinessList () {
     const businessArray = [];
 
     return (
-    <div className="business-list">
+    <div className={styles.BusinessList}>
         <Business />
         <Business />
         <Business />
