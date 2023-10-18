@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from './SearchBar.module.css'
 
 const sortingOptions = {
@@ -7,11 +7,47 @@ const sortingOptions = {
     "Most Reviewed": "review_count",
 };
 
-function SearchBar () {
+function SearchBar ({searchYelp}) {
+    const [term, setTerm] = useState("");
+    const [location, setLocation] = useState("");
+    const [sort, setSort] = useState('best_match');
+
+    const getSortByClass = (option) => {
+        if (sort === option) {
+            return styles.active;
+        }
+        return '';
+    };
+
+    const handleSortChange = option => {
+        setSort(option);
+    };
+
+    const handleTermChange = event => {
+        setTerm(event.target.value);
+    };
+
+    const handleLocationChange = event => {
+        setLocation(event.target.value);
+    };
+
+    const handleSearch = event => {
+        event.preventDefault();
+        searchYelp(term, location, sort);
+    };
+
     const sorted = () => {
         return Object.keys(sortingOptions).map((criteria) => {
-            let sortResult = sortingOptions.criteria;
-            return <li key={sortResult}>{criteria}</li>
+            let sortResult = sortingOptions[criteria];
+            return (
+            <li 
+            key={sortResult} 
+            className={getSortByClass(sortResult)}
+            onClick={() => {handleSortChange(sortResult)}}
+            >
+                {criteria}
+            </li>
+            )
         });
     };
 
@@ -21,13 +57,15 @@ function SearchBar () {
             <div className={styles.SearchBarSortOptions}>
                 <ul>{sorted()}</ul>
             </div>
-            <div className={styles.SearchBarFields}>
-                <input type="text" placeholder="Search Restaurant" />
-                <input type="text" placeholder="City" />
-            </div>
-            <div className={styles.SearchBarSubmit}>
-                <a>Search!</a>
-            </div>
+            <form onSubmit={handleSearch}>
+                <div className={styles.SearchBarFields}>
+                    <input type="text" placeholder="Foods!" onChange={handleTermChange} />
+                    <input type="text" placeholder="Where?" onChange={handleLocationChange} />
+                </div>
+                <div className={styles.SearchBarSubmit}>
+                    <button type='submit'>Search!</button>
+                </div>
+            </form>
         </div>
     );
 };

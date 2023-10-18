@@ -3,17 +3,12 @@ import styles from './BusinessList.module.css'
 import Business from '../Business/Business';
 
 
-function BusinessList () {
+function BusinessList ({businessList}) {
     const businessArray = [];
 
     return (
     <div className={styles.BusinessList}>
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
-        <Business />
+        {businessList.map(business => <Business business={business} />)}
     </div>
     );
 };
