@@ -5,9 +5,10 @@ import styles from './Business.module.css'
 
 
 function Business({business}) {
-    return (<div className={styles.Business}>
+    return (
+    <div className={styles.Business}>
         <div className={styles.imageContainer}>
-        <img src={business.imageSrc}/>
+        <img src={business.imageSrc} alt="restaurant"/>
         </div>
         <h2>{business.name}</h2>
         <div className={styles.BusinessInformation}>
@@ -19,8 +20,8 @@ function Business({business}) {
             </div>
             <div className={styles.BusinessReviews}>
             <h3>{business.category.toUpperCase()}</h3>
-            <h3 className={styles.rating}>{business.rating}</h3>
-            <p>{business.reviewCount}</p>
+            <h3 className={styles.rating}>{`${business.rating} stars`}</h3>
+            <p>{`${business.reviewCount} reviews`}</p>
             </div>
         </div>
         

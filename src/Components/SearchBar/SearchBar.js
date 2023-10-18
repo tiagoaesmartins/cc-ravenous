@@ -10,17 +10,17 @@ const sortingOptions = {
 function SearchBar ({searchYelp}) {
     const [term, setTerm] = useState("");
     const [location, setLocation] = useState("");
-    const [sort, setSort] = useState('best_match');
+    const [sortBy, setSortBy] = useState('best_match');
 
     const getSortByClass = (option) => {
-        if (sort === option) {
+        if (sortBy === option) {
             return styles.active;
         }
         return '';
     };
 
     const handleSortChange = option => {
-        setSort(option);
+        setSortBy(option);
     };
 
     const handleTermChange = event => {
@@ -33,7 +33,7 @@ function SearchBar ({searchYelp}) {
 
     const handleSearch = event => {
         event.preventDefault();
-        searchYelp(term, location, sort);
+        searchYelp(term, location, sortBy);
     };
 
     const sorted = () => {

@@ -1,16 +1,16 @@
 import React from "react";
-import styles from './BusinessList.module.css'
-import Business from '../Business/Business';
+import styles from "./BusinessList.module.css";
 
+import Business from "../Business/Business";
 
-function BusinessList ({businessList}) {
-    const businessArray = [];
-
-    return (
+const BusinessList = ({ businesses }) => {
+  return (
     <div className={styles.BusinessList}>
-        {businessList.map(business => <Business business={business} />)}
+      {businesses.map((business) => {
+        return <Business business={business} key={business.name} />;
+      })}
     </div>
-    );
+  );
 };
 
 export default BusinessList;

@@ -1,33 +1,23 @@
-import React from "react";
-import styles from './App.module.css'
+import React, { useState } from "react";
+import styles from "./App.module.css";
 
-import BusinessList from '../BusinessList/BusinessList'
-import SearchBar from '../SearchBar/SearchBar'
+import BusinessList from "../BusinessList/BusinessList";
+import SearchBar from "../SearchBar/SearchBar";
+import Yelp from "../../utils/Yelp";
 
-const sample = {
-  imageSrc: 'https://content.codecademy.com/programs/react/ravenous/pizza.jpg',
-  name: 'MarginOtto Pizzeria',
-  address: '1010 Paddington Way',
-  city: 'Flavortown',
-  state: 'NY',
-  zipCode: '10101',
-  category: 'Italian',
-  rating: 4.5,
-  reviewCount: 90
-};
+const App = () => {
+  const [businesses, setBusinesses] = useState([]);
 
-const sampleArray = [sample, sample, sample, sample, sample, sample];
-
-function App () {
-  const searchYelp = (term, location, sort) => {
-    console.log(`Searching Yelp with ${term}, ${location}, ${sort}`);
+  const searchYelp = async (term, location, sortBy) => {
+    const businesses = await Yelp.search(term, location, sortBy);
+    setBusinesses(businesses);
   };
 
   return (
     <div className={styles.App}>
       <h1>ravenous</h1>
       <SearchBar searchYelp={searchYelp} />
-      <BusinessList businessList={sampleArray} />
+      <BusinessList businesses={businesses} />
     </div>
   );
 };
